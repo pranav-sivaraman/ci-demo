@@ -49,6 +49,7 @@ jobs:
               - added|modified: '**/*.sh'
 
   style-python:
+    name: Lint Python
     needs: changes
     if: ${{ needs.changes.outputs.style_python == 'true' }}
     runs-on: ubuntu-latest
@@ -57,6 +58,7 @@ jobs:
         run: echo "Need to check formatting for C/C++!"
 
   style-c-cpp:
+    name: Lint C/C++
     needs: changes
     if: ${{ needs.changes.outputs.style_c_cpp == 'true' }}
     runs-on: ubuntu-latest
@@ -65,6 +67,7 @@ jobs:
         run: echo "Need to check formatting for Python!"
 
   style-shell:
+    name: Lint POSIX Shell
     needs: changes
     if: ${{ needs.changes.outputs.style_shell == 'true' }}
     runs-on: ubuntu-latest
