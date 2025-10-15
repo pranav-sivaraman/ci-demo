@@ -19,6 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       style-python: ${{ steps.filter.outputs.style-python }}
+      style-c-cpp: ${{ steps.filter.outputs.style-c-cpp }}
+      style-shell: ${{ steps.filter.outputs.style-shell }}
       unit-tests: ${{ steps.filter.outputs.unit-tests }}
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # @v2
@@ -35,6 +37,15 @@ jobs:
               - '.github/**/*'
               - '**/*.py'
               - 'pyproject.toml'
+            style-c-cpp:
+              - '.github/**/*'
+              - '**/*.c'
+              - '**/*.h'
+              - '**/*.cpp'
+              - '**/*.hpp'
+            style-shell:
+              - '.github/**/*'
+              - '**/*.sh'
 
   style-python:
     needs: changes
@@ -42,12 +53,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Status Check
-        run: echo "I'm running!"
+        run: echo "Need to check formatting for C/C++!"
+
+  style-c-cpp:
+    needs: changes
+    if: ${{ needs.changes.outputs.style-c-cpp == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Status Check
+        run: echo "Need to check formatting for Python!"
+
+  style-shell:
+    needs: changes
+    if: ${{ needs.changes.outputs.style-c-cpp == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Status Check
+        run: echo "Need to check formatting for POSIX shell!"
 
   all:
     needs:
      - changes
      - style-python
+     - style-c-cpp
+     - style-shell
     if: always()
     runs-on: ubuntu-latest
     steps:
