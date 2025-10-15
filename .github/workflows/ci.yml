@@ -58,7 +58,7 @@ jobs:
       - name: Lint Python
         run: |
           echo "Need to check formatting for Python!"
-          echo "List of files: ${{ needs.changes.outputs.style_python_files }}
+          echo "List of files:" ${{ needs.changes.outputs.style_python_files }}
 
   lint-c-cpp:
     name: Lint C/C++
@@ -69,7 +69,7 @@ jobs:
       - name: Lint C/C++
         run: |
           echo "Need to check formatting for C/C++!"
-          echo "List of files: ${{ needs.changes.outputs.style_c_cpp_files }}
+          echo "List of files:" ${{ needs.changes.outputs.style_c_cpp_files }}
 
   lint-shell:
     name: Lint POSIX Shell
@@ -80,7 +80,7 @@ jobs:
       - name: Lint POSIX Shell
         run: |
           echo "Need to check formatting for POSIX Shell!"
-          echo "List of files: ${{ needs.changes.outputs.style_shell_files }}
+          echo "List of files:" ${{ needs.changes.outputs.style_shell_files }}
 
   all:
     name: All
