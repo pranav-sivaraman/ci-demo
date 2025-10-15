@@ -18,10 +18,10 @@ jobs:
   changes:
     runs-on: ubuntu-latest
     outputs:
-      style-python: ${{ steps.filter.outputs.style-python }}
-      style-c-cpp: ${{ steps.filter.outputs.style-c-cpp }}
-      style-shell: ${{ steps.filter.outputs.style-shell }}
-      unit-tests: ${{ steps.filter.outputs.unit-tests }}
+      style_python: ${{ steps.filter.outputs.style_python }}
+      style_c_cpp: ${{ steps.filter.outputs.style_c_cpp }}
+      style_shell: ${{ steps.filter.outputs.style_shell }}
+      unit_tests: ${{ steps.filter.outputs.unit_tests }}
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # @v2
         if: ${{ github.event_name == 'push' }}
@@ -32,43 +32,44 @@ jobs:
       - uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36
         id: filter
         with:
+          list-files: "shell"
           filters: |
-            style-python:
-              - '.github/**/*'
-              - '**/*.py'
-              - 'pyproject.toml'
-            style-c-cpp:
-              - '.github/**/*'
-              - '**/*.c'
-              - '**/*.h'
-              - '**/*.cpp'
-              - '**/*.hpp'
-            style-shell:
-              - '.github/**/*'
-              - '**/*.sh'
+            style_python:
+              - added|modified: '.github/**/*'
+              - added|modified: '**/*.py'
+              - added|modified: 'pyproject.toml'
+            style_c_cpp:
+              - added|modified: '.github/**/*'
+              - added|modified: '**/*.c'
+              - added|modified: '**/*.h'
+              - added|modified: '**/*.cpp'
+              - added|modified: '**/*.hpp'
+            style_shell:
+              - added|modified: '.github/**/*'
+              - added|modified: '**/*.sh'
 
   style-python:
     needs: changes
-    if: ${{ needs.changes.outputs.style-python == 'true' }}
+    if: ${{ needs.changes.outputs.style_python == 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Status Check
+      - name: Lint Python
         run: echo "Need to check formatting for C/C++!"
 
   style-c-cpp:
     needs: changes
-    if: ${{ needs.changes.outputs.style-c-cpp == 'true' }}
+    if: ${{ needs.changes.outputs.style_c_cpp == 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Status Check
+      - name: Lint C/C++
         run: echo "Need to check formatting for Python!"
 
   style-shell:
     needs: changes
-    if: ${{ needs.changes.outputs.style-c-cpp == 'true' }}
+    if: ${{ needs.changes.outputs.style_shell == 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Status Check
+      - name: Lint POSIX Shell
         run: echo "Need to check formatting for POSIX shell!"
 
   all:
