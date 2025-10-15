@@ -16,6 +16,7 @@ concurrency:
 
 jobs:
   changes:
+    name: Detect Changes
     runs-on: ubuntu-latest
     outputs:
       style_python: ${{ steps.filter.outputs.style_python }}
@@ -76,6 +77,7 @@ jobs:
         run: echo "Need to check formatting for POSIX shell!"
 
   all:
+    name: All
     needs:
      - changes
      - style-python
@@ -90,5 +92,5 @@ jobs:
           echo "One or more required jobs failed or were cancelled"
           exit 1
         else
-          echo "All jobs completed successfully"
+          echo "All jobs completed successfully!"
         fi
