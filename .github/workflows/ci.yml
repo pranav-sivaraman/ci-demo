@@ -1,4 +1,4 @@
-name: ci
+name: CI
 on:
   push:
     branches:
@@ -20,6 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       style_python: ${{ steps.filter.outputs.style_python }}
+      style_python_files: ${{ steps.filter.outputs.style_python_files }}
       style_c_cpp: ${{ steps.filter.outputs.style_c_cpp }}
       style_shell: ${{ steps.filter.outputs.style_shell }}
       unit_tests: ${{ steps.filter.outputs.unit_tests }}
